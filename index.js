@@ -58,7 +58,7 @@ app.post('/products', async (req, res) => {
 app.put('/products/:id', async (req, res) => {
     try {
         const result = await productsCollection.findOneAndUpdate(
-            { _id: new ObjectId(req.params.id) },
+            { id: req.params.id },
             { $set: req.body },
             { returnOriginal: false }
         );
@@ -75,7 +75,7 @@ app.put('/products/:id', async (req, res) => {
 // Delete a product by ID
 app.delete('/products/:id', async (req, res) => {
     try {
-        const result = await productsCollection.deleteOne({ _id: new ObjectId(req.params.id) });
+        const result = await productsCollection.deleteOne({ id: new req.params.id });
         if (result.deletedCount === 1) {
             res.status(204).send();
         } else {
